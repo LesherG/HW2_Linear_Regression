@@ -194,7 +194,10 @@ def trainLogistic(X,y, max_iters=max_iters, step_size=step_size):
 #
 ######################################################################
 def dummyAugment(X):
-  raise Exception('Student error: You haven\'t implemented dummyAugment yet.')
+  one = np.ones((len(X), 1))
+  aug_X = np.hstack((one, X))
+  # print(aug_X)
+  return aug_X
 
 
 
