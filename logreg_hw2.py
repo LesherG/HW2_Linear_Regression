@@ -8,7 +8,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S')
 
 # GLOBAL PARAMETERS FOR STOCHASTIC GRADIENT DESCENT
-step_size=.0001
+step_size=.001
 max_iters=1000
 
 def main():
@@ -54,15 +54,27 @@ def main():
   logging.info("Running cross-fold validation for bias case:")
 
   # Perform k-fold cross
-  for k in [2,3,4, 5, 10, 20, 50]:
+  '''
+  for k in [2,3,4, 5, 10, 20]:
     cv_acc, cv_std = kFoldCrossVal(X_train_bias, y_train, k)
     logging.info("{}-fold Cross Val Accuracy -- Mean (stdev): {:.4}% ({:.4}%)".format(k,cv_acc*100, cv_std*100))
+    '''
 
   ####################################################
   # Write the code to make your test submission here
   ####################################################
+  X_test_bias = dummyAugment(X_test)
+  Y_pred_test = X_test_bias@w >= 0
 
-  raise Exception('Student error: You haven\'t implemented the code in main() to make test predictions.')
+  f=open("logreg_test.csv", "w")
+  f.write("id,type\n")
+  for i in range(len(Y_pred_test)):
+    f.write("{},{}\n".format(i, int(Y_pred_test[i])))
+  f.close()
+  
+
+  # acc.append(np.mean((X_fold_test@w >= 0) == y_fold_test))
+  
 
 
 
