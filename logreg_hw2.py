@@ -54,11 +54,11 @@ def main():
   logging.info("Running cross-fold validation for bias case:")
 
   # Perform k-fold cross
-  '''
+  
   for k in [2,3,4, 5, 10, 20]:
     cv_acc, cv_std = kFoldCrossVal(X_train_bias, y_train, k)
     logging.info("{}-fold Cross Val Accuracy -- Mean (stdev): {:.4}% ({:.4}%)".format(k,cv_acc*100, cv_std*100))
-    '''
+    
 
   ####################################################
   # Write the code to make your test submission here
