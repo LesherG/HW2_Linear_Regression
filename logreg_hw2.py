@@ -8,7 +8,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S')
 
 # GLOBAL PARAMETERS FOR STOCHASTIC GRADIENT DESCENT
-step_size=0.0001
+step_size=.0001
 max_iters=1000
 
 def main():
@@ -86,7 +86,7 @@ def logistic(z):
   
   return logit_z
 
-def logLogis(z):
+def logLogit(z):
   log_logit_z = np.zeros(np.shape(z))
   for i in range(len(z)):
     log_logit_z[i] = -np.logaddexp(0,-z[i])
@@ -115,7 +115,8 @@ def calculateNegativeLogLikelihood(X,y,w):
   nll = 0
   st = .0000001 #for non-infinite logs
   for i in range(0, len(X)):
-    nll -= y[i]*logLogis([w.T@X[i]]) + (1-y[i])*np.log(1 - logistic([w.T@X[i]]) + st)
+    nll -= (y[i]@logLogit([w.T@X[i]]) + (1-y[i])@np.log(1 - logistic([w.T@X[i]]) + st))[0]
+  # print(nll)
   return nll
 
 
