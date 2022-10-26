@@ -162,7 +162,7 @@ def trainLogistic(X,y, max_iters=max_iters, step_size=step_size):
         # . Implement equation 9.
         # .
      
-        w_grad = X.T@logistic(X@w)
+        w_grad = X.T@(logistic(X@w)-y)
 
         # This is here to make sure your gradient is the right shape
         assert(w_grad.shape == (X.shape[1],1))
