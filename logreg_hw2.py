@@ -81,13 +81,16 @@ def main():
 ######################################################################
 def logistic(z):
   logit_z = np.zeros(np.shape(z))
-  for z_i in z:
-    if(z_i > 0):
-      pass
-    else:
-      pass
-
+  for i in range(len(z)):
+    logit_z[i] = 1.0/(1.0+np.exp(-z[i]))
+  
   return logit_z
+
+def logLogis(z):
+  log_logit_z = np.zeros(np.shape(z))
+  for i in range(len(z)):
+    log_logit_z[i] = -np.logaddexp(0,-z[i])
+  return log_logit_z
 
 
 ######################################################################
@@ -109,7 +112,10 @@ def logistic(z):
 #   nll --  the value of the negative log-likelihood
 ######################################################################
 def calculateNegativeLogLikelihood(X,y,w):
-  raise Exception('Student error: You haven\'t implemented the negative log likelihood calculation yet.')
+  nll = 0
+  st = .0000001 #for non-infinite logs
+  for i in range(0, len(X)):
+    nll -= y[i]*logLogis([w.T@X[i]]) + (1-y[i])*np.log(1 - logistic([w.T@X[i]]) + st)
   return nll
 
 
@@ -156,7 +162,7 @@ def trainLogistic(X,y, max_iters=max_iters, step_size=step_size):
         # . Implement equation 9.
         # .
      
-        raise Exception('Student error: You haven\'t implemented the gradient calculation for trainLogistic yet.')
+        w_grad = X.T@logistic(X@w)
 
         # This is here to make sure your gradient is the right shape
         assert(w_grad.shape == (X.shape[1],1))
