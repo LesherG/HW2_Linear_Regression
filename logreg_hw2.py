@@ -39,7 +39,7 @@ def main():
   logging.info("Learned weight vector: {}".format([np.round(a,4)[0] for a in w]))
   logging.info("Train accuracy: {:.4}%".format(np.mean(y_pred_train == y_train)*100))
 
-
+  
   plt.figure(figsize=(16,9))
   plt.plot(range(len(losses)), losses, label="No Bias Term Added")
   plt.plot(range(len(bias_losses)), bias_losses, label="Bias Term Added")
